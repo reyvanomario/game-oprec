@@ -1,0 +1,454 @@
+[gd_scene load_steps=11 format=3 uid="uid://6rbi474wyqjq"]
+
+[ext_resource type="Script" path="res://scenes/ui/shop/shop_screen.gd" id="1_foiqm"]
+[ext_resource type="PackedScene" uid="uid://cpxouj4c180fw" path="res://scenes/ui/sound_button.tscn" id="2_2ieca"]
+[ext_resource type="Texture2D" uid="uid://cxdl628fnniok" path="res://scenes/game_object/gold/G_Idle.png" id="2_4mado"]
+[ext_resource type="PackedScene" uid="uid://ddb5glkd48vhh" path="res://scenes/component/random_stream_player_component.tscn" id="2_5qkaf"]
+[ext_resource type="AudioStream" uid="uid://cakj72rba3a61" path="res://assets/audio/door-open-close-45475.ogg" id="3_tlwf1"]
+
+[sub_resource type="Animation" id="Animation_ipsm8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -650)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_bthwv"]
+resource_name = "transition_in"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(0.203063, 1),
+"update": 0,
+"values": [Vector2(0, -650), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_q1c8t"]
+resource_name = "transition_out"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(0.203063, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -650)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4l0ho"]
+_data = {
+"RESET": SubResource("Animation_ipsm8"),
+"transition_in": SubResource("Animation_bthwv"),
+"transition_out": SubResource("Animation_q1c8t")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aqa12"]
+bg_color = Color(0.380392, 0.141176, 0.164706, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.786212, 0.750833, 0.985125, 1)
+border_blend = true
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="ShopScreen" type="CanvasLayer"]
+process_mode = 3
+offset = Vector2(0, -650)
+transform = Transform2D(1, 0, 0, 1, 0, -650)
+script = ExtResource("1_foiqm")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4l0ho")
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.423529, 0.254902, 0.145098, 0.352941)
+
+[node name="RandomStreamPlayerComponent" parent="." instance=ExtResource("2_5qkaf")]
+streams = Array[AudioStream]([ExtResource("3_tlwf1")])
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(750, 380)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="CloseShopButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_2ieca")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 40)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "Close"
+
+[node name="ShopTitleLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.247059, 0.14902, 0.192157, 1)
+theme_override_constants/outline_size = 9
+theme_override_font_sizes/font_size = 55
+text = "Upgrade Shop
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="SwordCooldownPanel" type="Panel" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_aqa12")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/SwordCooldownPanel"]
+layout_mode = 0
+offset_right = 214.0
+offset_bottom = 94.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/SwordCooldownPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/SwordCooldownPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/SwordCooldownPanel/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Sword Cooldown"
+
+[node name="DescriptionLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/SwordCooldownPanel/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Reduces sword cooldown by 10%."
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/SwordCooldownPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="CostLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/SwordCooldownPanel/MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Cost: 4"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/SwordCooldownPanel/MarginContainer/HBoxContainer/VBoxContainer2/CostLabel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -30.0
+offset_top = -16.0
+offset_right = 17.5
+offset_bottom = 24.0
+grow_horizontal = 0
+texture = ExtResource("2_4mado")
+expand_mode = 2
+
+[node name="SwordCooldownButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/SwordCooldownPanel/MarginContainer/HBoxContainer/VBoxContainer2" instance=ExtResource("2_2ieca")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 30)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 20
+text = "Buy
+"
+icon_alignment = 2
+expand_icon = true
+
+[node name="SwordDamagePanel" type="Panel" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_aqa12")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/SwordDamagePanel"]
+layout_mode = 0
+offset_right = 214.0
+offset_bottom = 94.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/SwordDamagePanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/SwordDamagePanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/SwordDamagePanel/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Sword Damage"
+
+[node name="DescriptionLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/SwordDamagePanel/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Increases sword cooldown by 3."
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/SwordDamagePanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="CostLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/SwordDamagePanel/MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Cost: 6"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/SwordDamagePanel/MarginContainer/HBoxContainer/VBoxContainer2/CostLabel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -30.0
+offset_top = -16.0
+offset_right = 17.5
+offset_bottom = 24.0
+grow_horizontal = 0
+texture = ExtResource("2_4mado")
+expand_mode = 2
+
+[node name="SwordDamageButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/SwordDamagePanel/MarginContainer/HBoxContainer/VBoxContainer2" instance=ExtResource("2_2ieca")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 30)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 20
+text = "Buy
+"
+icon_alignment = 2
+expand_icon = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="MovementSpeedPanel" type="Panel" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_aqa12")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/MovementSpeedPanel"]
+layout_mode = 0
+offset_right = 214.0
+offset_bottom = 94.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/MovementSpeedPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/MovementSpeedPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = -1
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/MovementSpeedPanel/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Movement Speed"
+
+[node name="DescriptionLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/MovementSpeedPanel/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Increases player movement 
+speed by 5%."
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/MovementSpeedPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="CostLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/MovementSpeedPanel/MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Cost: 5
+"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/MovementSpeedPanel/MarginContainer/HBoxContainer/VBoxContainer2/CostLabel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -30.0
+offset_top = -16.0
+offset_right = 17.5
+offset_bottom = 24.0
+grow_horizontal = 0
+texture = ExtResource("2_4mado")
+expand_mode = 2
+
+[node name="MovementSpeedButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/MovementSpeedPanel/MarginContainer/HBoxContainer/VBoxContainer2" instance=ExtResource("2_2ieca")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 30)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 20
+text = "Buy
+"
+icon_alignment = 2
+expand_icon = true
+
+[node name="ArcherTroopsPanel" type="Panel" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_aqa12")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/ArcherTroopsPanel"]
+layout_mode = 0
+offset_right = 214.0
+offset_bottom = 94.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/ArcherTroopsPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/ArcherTroopsPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = -1
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/ArcherTroopsPanel/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Archer Troops"
+
+[node name="DescriptionLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/ArcherTroopsPanel/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Summon archer that will follow
+and support the player."
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/ArcherTroopsPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="CostLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/ArcherTroopsPanel/MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Cost: 10
+"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/ArcherTroopsPanel/MarginContainer/HBoxContainer/VBoxContainer2/CostLabel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -30.0
+offset_top = -16.0
+offset_right = 17.5
+offset_bottom = 24.0
+grow_horizontal = 0
+texture = ExtResource("2_4mado")
+expand_mode = 2
+
+[node name="ArcherTroopsButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/ArcherTroopsPanel/MarginContainer/HBoxContainer/VBoxContainer2" instance=ExtResource("2_2ieca")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 30)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 20
+text = "Buy
+"
+icon_alignment = 2
+expand_icon = true

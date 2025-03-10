@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://paueb7nofnku"]
+
+[ext_resource type="AudioStream" uid="uid://co80d82nenjf2" path="res://assets/audio/Inventing Flight.ogg" id="1_5btvg"]
+[ext_resource type="Script" path="res://scenes/autoload/music_player.gd" id="2_pp7g2"]
+
+[node name="MusicPlayer" type="AudioStreamPlayer"]
+process_mode = 3
+stream = ExtResource("1_5btvg")
+volume_db = -15.0
+autoplay = true
+bus = &"music"
+script = ExtResource("2_pp7g2")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true

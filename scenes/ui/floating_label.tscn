@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjtvn03bkqlkl"]
+
+[ext_resource type="Script" path="res://scenes/ui/floating_label.gd" id="1_hvmyd"]
+
+[node name="FloatingLabel" type="Node2D"]
+z_index = 4
+script = ExtResource("1_hvmyd")
+
+[node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(100, 32)
+offset_left = -49.0
+offset_top = -16.0
+offset_right = 51.0
+offset_bottom = 16.0
+theme_override_colors/font_shadow_color = Color(0.247059, 0.14902, 0.192157, 1)
+theme_override_colors/font_outline_color = Color(0.247059, 0.14902, 0.192157, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 40
+text = "100
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+autostart = true

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://57c0hvxpftk8"]
+
+[ext_resource type="Script" path="res://scenes/manager/player_collectible_manager.gd" id="1_vm1v2"]
+
+[node name="PlayerCollectibleManager" type="Node"]
+script = ExtResource("1_vm1v2")

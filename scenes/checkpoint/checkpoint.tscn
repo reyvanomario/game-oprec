@@ -1,0 +1,91 @@
+[gd_scene load_steps=12 format=3 uid="uid://xmop0y413g8n"]
+
+[ext_resource type="Script" path="res://scenes/checkpoint/checkpoint.gd" id="1_ab5l7"]
+[ext_resource type="Texture2D" uid="uid://c1asi6mg1h1uv" path="res://scenes/checkpoint/Button_Blue.png" id="1_rjy6f"]
+[ext_resource type="PackedScene" uid="uid://bjtvn03bkqlkl" path="res://scenes/ui/floating_label.tscn" id="2_ay386"]
+[ext_resource type="Texture2D" uid="uid://c4c8th1j1nar1" path="res://scenes/checkpoint/Button_Blue_Pressed.png" id="3_01www"]
+[ext_resource type="PackedScene" uid="uid://dke1v7ecmc3hw" path="res://scenes/component/random_stream_player_2d_component.tscn" id="3_r5sgg"]
+[ext_resource type="AudioStream" uid="uid://u81kpxj4illx" path="res://assets/audio/click4.ogg" id="4_vhqke"]
+
+[sub_resource type="Animation" id="Animation_mwftj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_rjy6f")]
+}
+
+[sub_resource type="Animation" id="Animation_uwito"]
+resource_name = "default"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_rjy6f")]
+}
+
+[sub_resource type="Animation" id="Animation_j72n3"]
+resource_name = "pressed"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("1_rjy6f"), ExtResource("3_01www")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_64ibd"]
+_data = {
+"RESET": SubResource("Animation_mwftj"),
+"default": SubResource("Animation_uwito"),
+"pressed": SubResource("Animation_j72n3")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a3b75"]
+size = Vector2(52, 59)
+
+[node name="Checkpoint" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_ab5l7")
+floating_label_scene = ExtResource("2_ay386")
+
+[node name="RandomStreamPlayer2DComponent" parent="." instance=ExtResource("3_r5sgg")]
+streams = Array[AudioStream]([ExtResource("4_vhqke")])
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_rjy6f")
+offset = Vector2(0, 7)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite2D")
+libraries = {
+"": SubResource("AnimationLibrary_64ibd")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_a3b75")
+
+[node name="RespawnPoint" type="Marker2D" parent="."]
+position = Vector2(67, 0)

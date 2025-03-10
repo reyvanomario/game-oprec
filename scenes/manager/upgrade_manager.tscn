@@ -1,0 +1,34 @@
+[gd_scene load_steps=8 format=3 uid="uid://srnvq02rlwht"]
+
+[ext_resource type="Script" path="res://scenes/manager/upgrade_manager.gd" id="1_8alj8"]
+[ext_resource type="Script" path="res://resources/upgrades/ability_upgrade.gd" id="2_q67mu"]
+[ext_resource type="Resource" uid="uid://beb1gna8is3bu" path="res://resources/upgrades/sword_cooldown.tres" id="3_o7twy"]
+[ext_resource type="PackedScene" uid="uid://bjtvn03bkqlkl" path="res://scenes/ui/floating_label.tscn" id="4_02m0t"]
+
+[sub_resource type="Resource" id="Resource_ig75t"]
+script = ExtResource("2_q67mu")
+id = "sword_damage"
+name = "Sword Damage"
+description = "Increases sword cooldown by 3."
+cost = 6
+
+[sub_resource type="Resource" id="Resource_5xkvl"]
+script = ExtResource("2_q67mu")
+id = "player_movement_speed"
+name = "Player Movement Speed"
+description = "Increases player movement speed by 5%"
+cost = 5
+
+[sub_resource type="Resource" id="Resource_h8ksy"]
+script = ExtResource("2_q67mu")
+id = "archer_troops"
+name = "Archer Troops"
+description = "Summon archer that will follow
+and support the player."
+cost = 10
+
+[node name="UpgradeManager" type="Node"]
+process_mode = 3
+script = ExtResource("1_8alj8")
+upgrade_pool = Array[ExtResource("2_q67mu")]([ExtResource("3_o7twy"), SubResource("Resource_ig75t"), SubResource("Resource_5xkvl"), SubResource("Resource_h8ksy")])
+floating_label_scene = ExtResource("4_02m0t")

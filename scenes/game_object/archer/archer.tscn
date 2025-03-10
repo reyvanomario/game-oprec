@@ -1,0 +1,114 @@
+[gd_scene load_steps=12 format=3 uid="uid://clmfpxkq7gkm5"]
+
+[ext_resource type="Script" path="res://scenes/game_object/archer/archer.gd" id="1_td0u0"]
+[ext_resource type="PackedScene" uid="uid://cjkp3j8j1185c" path="res://scenes/component/health_component.tscn" id="2_dxp05"]
+[ext_resource type="Texture2D" uid="uid://dffhpwx8qgssu" path="res://scenes/game_object/archer/Archer_Red_(NoArms).png" id="3_3dlfs"]
+[ext_resource type="PackedScene" uid="uid://oe4fwxdi3lhc" path="res://scenes/game_object/archer/bow.tscn" id="4_qcjv8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ny1tn"]
+radius = 250.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gvcht"]
+radius = 50.01
+
+[sub_resource type="Animation" id="Animation_18o03"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ArcherSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_p8fb5"]
+resource_name = "idle"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ArcherSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_it0rj"]
+resource_name = "walk"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ArcherSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9, 10, 11]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8yyj1"]
+_data = {
+"RESET": SubResource("Animation_18o03"),
+"idle": SubResource("Animation_p8fb5"),
+"walk": SubResource("Animation_it0rj")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_437fp"]
+radius = 17.0
+
+[node name="Archer" type="CharacterBody2D"]
+collision_layer = 0
+script = ExtResource("1_td0u0")
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_dxp05")]
+
+[node name="ArcherSprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_3dlfs")
+offset = Vector2(0, -32)
+flip_h = true
+hframes = 6
+vframes = 2
+
+[node name="Bow" parent="." instance=ExtResource("4_qcjv8")]
+position = Vector2(-23, -16)
+
+[node name="SightArea2D" type="Area2D" parent="."]
+visible = false
+position = Vector2(0, -27)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SightArea2D"]
+position = Vector2(-1, -25)
+shape = SubResource("CircleShape2D_ny1tn")
+
+[node name="CollisionArea2D" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionArea2D"]
+position = Vector2(0, -32)
+shape = SubResource("CircleShape2D_gvcht")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8yyj1")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -15)
+shape = SubResource("CircleShape2D_437fp")

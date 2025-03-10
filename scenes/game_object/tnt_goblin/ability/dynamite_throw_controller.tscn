@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cs7bp5oaoubjn"]
+
+[ext_resource type="Script" path="res://scenes/game_object/tnt_goblin/dynamite_throw_controller.gd" id="1_cfdc6"]
+[ext_resource type="PackedScene" uid="uid://cmrxya1gtcu1l" path="res://scenes/game_object/tnt_goblin/ability/dynamite_throw_ability.tscn" id="2_dm4qq"]
+
+[node name="DynamiteThrowController" type="Node"]
+script = ExtResource("1_cfdc6")
+dynamite_throw_ability = ExtResource("2_dm4qq")
+
+[node name="CooldownTimer" type="Timer" parent="."]
+wait_time = 3.6
+
+[node name="AnimationUnlockTimer" type="Timer" parent="."]
+wait_time = 1.8
+one_shot = true

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityUpgrade" load_steps=2 format=3 uid="uid://beb1gna8is3bu"]
+
+[ext_resource type="Script" path="res://resources/upgrades/ability_upgrade.gd" id="1_simti"]
+
+[resource]
+script = ExtResource("1_simti")
+id = "sword_cooldown"
+name = "Sword Cooldown"
+description = "Reduces sword cooldown by 10%."
+cost = 4

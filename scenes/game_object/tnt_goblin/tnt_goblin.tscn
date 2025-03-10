@@ -1,0 +1,214 @@
+[gd_scene load_steps=24 format=3 uid="uid://cbuw31vvcsfw4"]
+
+[ext_resource type="Script" path="res://scenes/game_object/tnt_goblin/tnt_goblin.gd" id="1_55y1k"]
+[ext_resource type="Shader" uid="uid://byusmtqkyajce" path="res://shader/hit_shader.tres" id="1_bl5an"]
+[ext_resource type="Texture2D" uid="uid://6uc3o1js682i" path="res://scenes/game_object/tnt_goblin/TNT_Purple.png" id="1_m470x"]
+[ext_resource type="PackedScene" uid="uid://cs7bp5oaoubjn" path="res://scenes/game_object/tnt_goblin/ability/dynamite_throw_controller.tscn" id="2_2k8mg"]
+[ext_resource type="PackedScene" uid="uid://cjkp3j8j1185c" path="res://scenes/component/health_component.tscn" id="2_wqkne"]
+[ext_resource type="PackedScene" uid="uid://4s7pl2xxoxgu" path="res://scenes/component/drop_component.tscn" id="4_5yiyy"]
+[ext_resource type="PackedScene" uid="uid://2o1fmtbf8q3i" path="res://scenes/component/hurtbox_component.tscn" id="4_yco4f"]
+[ext_resource type="PackedScene" uid="uid://dke1v7ecmc3hw" path="res://scenes/component/random_stream_player_2d_component.tscn" id="6_7hdty"]
+[ext_resource type="PackedScene" uid="uid://cxkjlwmte4qvn" path="res://scenes/component/death_component.tscn" id="6_iv8pf"]
+[ext_resource type="AudioStream" uid="uid://gpns625n616c" path="res://assets/audio/mixkit-soft-quick-punch-2151.ogg" id="7_acs8q"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dpvi2"]
+resource_local_to_scene = true
+shader = ExtResource("1_bl5an")
+shader_parameter/enabled = false
+shader_parameter/tint = Color(1, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_xku2v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+
+[sub_resource type="Animation" id="Animation_hdfde"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_mdtix"]
+resource_name = "throw_dynamite"
+length = 1.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [14, 15, 16, 17, 18, 19, 20]
+}
+
+[sub_resource type="Animation" id="Animation_n4iel"]
+resource_name = "walk"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [7, 8, 9, 10, 11, 12]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tk1uc"]
+_data = {
+"RESET": SubResource("Animation_xku2v"),
+"idle": SubResource("Animation_hdfde"),
+"throw_dynamite": SubResource("Animation_mdtix"),
+"walk": SubResource("Animation_n4iel")
+}
+
+[sub_resource type="Animation" id="Animation_f040a"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_rkxll"]
+resource_name = "hit_flash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_usj2k"]
+_data = {
+"RESET": SubResource("Animation_f040a"),
+"hit_flash": SubResource("Animation_rkxll")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ak616"]
+radius = 41.0122
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tjt17"]
+radius = 600.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i05om"]
+radius = 500.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dgh5b"]
+radius = 20.0
+
+[node name="TNTGoblin" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 4
+collision_mask = 5
+script = ExtResource("1_55y1k")
+
+[node name="DynamiteThrowController" parent="." instance=ExtResource("2_2k8mg")]
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_wqkne")]
+max_health = 30.0
+
+[node name="DropComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_5yiyy")]
+health_component = NodePath("../HealthComponent")
+
+[node name="DeathComponent" parent="." node_paths=PackedStringArray("health_component", "sprite") instance=ExtResource("6_iv8pf")]
+health_component = NodePath("../HealthComponent")
+sprite = NodePath("../Sprite2D")
+
+[node name="HitRandomAudioPlayerComponent" parent="." instance=ExtResource("6_7hdty")]
+streams = Array[AudioStream]([ExtResource("7_acs8q")])
+
+[node name="PatrollingTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="DynamiteThrowDelayTimer" type="Timer" parent="."]
+wait_time = 0.6
+one_shot = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_dpvi2")
+texture = ExtResource("1_m470x")
+offset = Vector2(0, -32)
+hframes = 7
+vframes = 3
+frame = 7
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_tk1uc")
+}
+
+[node name="HitAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_usj2k")
+}
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_yco4f")]
+visible = false
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+position = Vector2(0, -30)
+shape = SubResource("CircleShape2D_ak616")
+
+[node name="SightArea2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SightArea2D"]
+position = Vector2(-1, -25)
+shape = SubResource("CircleShape2D_tjt17")
+
+[node name="AttackRangeArea2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRangeArea2D"]
+position = Vector2(0, -26)
+shape = SubResource("CircleShape2D_i05om")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-4, -25)
+shape = SubResource("CircleShape2D_dgh5b")

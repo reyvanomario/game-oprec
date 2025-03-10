@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dpmtnp16bnk1k"]
+
+[ext_resource type="Script" path="res://scenes/ui/next_stage.gd" id="1_hjicr"]
+[ext_resource type="Texture2D" uid="uid://ds0b1j82o8yxw" path="res://Castle_Purple.png" id="1_wbwda"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wf66w"]
+size = Vector2(78, 76.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jusws"]
+radius = 80.0
+
+[node name="NextStage" type="StaticBody2D"]
+z_index = 1
+script = ExtResource("1_hjicr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_wbwda")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-1, 78.25)
+shape = SubResource("RectangleShape2D_wf66w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, 16)
+shape = SubResource("CircleShape2D_jusws")

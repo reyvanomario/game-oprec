@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://h64y4fsafkwb"]
+
+[ext_resource type="Script" path="res://scenes/main/enemy_manager.gd" id="1_j4ceh"]
+[ext_resource type="PackedScene" uid="uid://g0j23ejrp7r7" path="res://scenes/ui/end_screen.tscn" id="2_kbogj"]
+
+[node name="EnemyManager" type="Node"]
+script = ExtResource("1_j4ceh")
+end_screen_scene = ExtResource("2_kbogj")

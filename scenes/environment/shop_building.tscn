@@ -1,0 +1,122 @@
+[gd_scene load_steps=13 format=3 uid="uid://biasua0bhoxvq"]
+
+[ext_resource type="Texture2D" uid="uid://b8ggedmx2nvp4" path="res://scenes/game_object/House_Blue.png" id="1_d4d6e"]
+[ext_resource type="Script" path="res://scenes/environment/shop_building.gd" id="1_u1iux"]
+[ext_resource type="PackedScene" uid="uid://6rbi474wyqjq" path="res://scenes/ui/shop/shop_screen.tscn" id="2_x8j4w"]
+[ext_resource type="PackedScene" uid="uid://cjkp3j8j1185c" path="res://scenes/component/health_component.tscn" id="3_armr3"]
+[ext_resource type="Texture2D" uid="uid://dpo7fkfmr1s8p" path="res://scenes/game_object/House_Destroyed.png" id="4_ghjq4"]
+[ext_resource type="PackedScene" uid="uid://2o1fmtbf8q3i" path="res://scenes/component/hurtbox_component.tscn" id="5_qc2l5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2hd13"]
+radius = 94.0053
+
+[sub_resource type="Animation" id="Animation_f632h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_d4d6e")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_fpjqi"]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_d4d6e")]
+}
+
+[sub_resource type="Animation" id="Animation_h641i"]
+resource_name = "destroyed"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_ghjq4")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4ophy"]
+_data = {
+"RESET": SubResource("Animation_f632h"),
+"default": SubResource("Animation_fpjqi"),
+"destroyed": SubResource("Animation_h641i")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v2stn"]
+radius = 93.086
+
+[node name="ShopBuilding" type="Area2D" groups=["buildings"]]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_u1iux")
+shop_screen_scene = ExtResource("2_x8j4w")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_armr3")]
+max_health = 1.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_d4d6e")
+offset = Vector2(0, -70)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -68)
+shape = SubResource("CircleShape2D_2hd13")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4ophy")
+}
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("5_qc2l5")]
+collision_layer = 0
+collision_mask = 8
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+position = Vector2(0, -67)
+shape = SubResource("CircleShape2D_v2stn")

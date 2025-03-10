@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1e5gj8tp2epq"]
+
+[ext_resource type="Script" path="res://scenes/controller/torch_goblin_skill_controller.gd" id="1_cd7dh"]
+
+[node name="TorchGoblinSkillController" type="Node"]
+script = ExtResource("1_cd7dh")
+
+[node name="CooldownTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true

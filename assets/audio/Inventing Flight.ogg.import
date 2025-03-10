@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://co80d82nenjf2"
+path="res://.godot/imported/Inventing Flight.ogg-d0a04c866880fd16b61d9aeabdd5161b.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Inventing Flight.ogg"
+dest_files=["res://.godot/imported/Inventing Flight.ogg-d0a04c866880fd16b61d9aeabdd5161b.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

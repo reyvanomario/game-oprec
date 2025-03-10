@@ -1,0 +1,127 @@
+[gd_scene load_steps=14 format=3 uid="uid://b730n20kbox5t"]
+
+[ext_resource type="Script" path="res://scenes/ui/goblin_house.gd" id="1_e8byr"]
+[ext_resource type="Texture2D" uid="uid://c8gdxl2svqt6c" path="res://Goblin_House.png" id="1_ljw0k"]
+[ext_resource type="PackedScene" uid="uid://tmklomocei44" path="res://scenes/game_object/torch_goblin/torch_goblin.tscn" id="2_6u1d2"]
+[ext_resource type="PackedScene" uid="uid://cbuw31vvcsfw4" path="res://scenes/game_object/tnt_goblin/tnt_goblin.tscn" id="3_su6k2"]
+[ext_resource type="PackedScene" uid="uid://cjkp3j8j1185c" path="res://scenes/component/health_component.tscn" id="4_cnkc7"]
+[ext_resource type="PackedScene" uid="uid://2o1fmtbf8q3i" path="res://scenes/component/hurtbox_component.tscn" id="6_4iuqo"]
+[ext_resource type="Texture2D" uid="uid://djwkgi7cccn4p" path="res://Goblin_House_Destroyed.png" id="6_xbngw"]
+
+[sub_resource type="Animation" id="Animation_mtnwn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_ljw0k")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HurtboxComponent/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_rlyr8"]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HurtboxComponent/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_fgufx"]
+resource_name = "destroyed"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("6_xbngw")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HurtboxComponent/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_33jf5"]
+_data = {
+"RESET": SubResource("Animation_mtnwn"),
+"default": SubResource("Animation_rlyr8"),
+"destroyed": SubResource("Animation_fgufx")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i8gs1"]
+radius = 70.0643
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6ey6v"]
+radius = 71.0634
+
+[node name="GoblinHouse" type="StaticBody2D" groups=["buildings"]]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_e8byr")
+torch_goblin = ExtResource("2_6u1d2")
+tnt_goblin = ExtResource("3_su6k2")
+
+[node name="HealthComponent" parent="." instance=ExtResource("4_cnkc7")]
+max_health = 100.0
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 7.5
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ljw0k")
+offset = Vector2(0, -65)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_33jf5")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -66)
+shape = SubResource("CircleShape2D_i8gs1")
+
+[node name="SpawnPoint" type="Marker2D" parent="."]
+position = Vector2(-1, -11)
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_4iuqo")]
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+position = Vector2(0, -66)
+shape = SubResource("CircleShape2D_6ey6v")

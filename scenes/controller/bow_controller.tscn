@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://jqd2d5bfm66v"]
+
+[ext_resource type="Script" path="res://scenes/controller/bow_controller.gd" id="1_ts25j"]
+
+[node name="BowController" type="Node"]
+script = ExtResource("1_ts25j")
+
+[node name="CooldownTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true

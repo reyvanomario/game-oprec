@@ -1,0 +1,97 @@
+[gd_scene load_steps=14 format=3 uid="uid://b3y2jtnwreqyy"]
+
+[ext_resource type="Script" path="res://scenes/game_object/sheep/sheep.gd" id="1_6ayrx"]
+[ext_resource type="Texture2D" uid="uid://4dsf7jgsq3ky" path="res://scenes/game_object/sheep/HappySheep_Idle.png" id="1_qnewm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cymhn"]
+radius = 26.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yhifd"]
+atlas = ExtResource("1_qnewm")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_txerd"]
+atlas = ExtResource("1_qnewm")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c44hs"]
+atlas = ExtResource("1_qnewm")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hltof"]
+atlas = ExtResource("1_qnewm")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m7xe3"]
+atlas = ExtResource("1_qnewm")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yrf3c"]
+atlas = ExtResource("1_qnewm")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_muy6k"]
+atlas = ExtResource("1_qnewm")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3p6fm"]
+atlas = ExtResource("1_qnewm")
+region = Rect2(896, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cx8ln"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yhifd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_txerd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c44hs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hltof")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m7xe3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yrf3c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_muy6k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3p6fm")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 7.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dhdrw"]
+radius = 14.0
+
+[node name="Sheep" type="CharacterBody2D"]
+collision_layer = 0
+script = ExtResource("1_6ayrx")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -15)
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_cymhn")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_cx8ln")
+animation = &"idle"
+frame = 3
+frame_progress = 0.53086
+offset = Vector2(0, -17)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -16)
+shape = SubResource("CircleShape2D_dhdrw")

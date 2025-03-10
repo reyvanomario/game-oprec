@@ -1,0 +1,49 @@
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://cf1aboj7ms6n8"]
+
+[ext_resource type="Texture2D" uid="uid://dyxajkahh2nu4" path="res://assets/ui/Hover.png" id="1_1aevn"]
+[ext_resource type="Texture2D" uid="uid://dc64es4w0ty3x" path="res://assets/ui/UiCozyFree.png" id="1_is1fo"]
+[ext_resource type="FontFile" uid="uid://b5atd24gddv7y" path="res://resources/theme/Beanstalk.ttf" id="1_vn7nl"]
+[ext_resource type="Texture2D" uid="uid://byjvu1rko0a4f" path="res://assets/ui/Default.png" id="2_prqwo"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ngbwm"]
+texture = ExtResource("1_1aevn")
+texture_margin_left = 7.0
+texture_margin_top = 13.0
+texture_margin_right = 6.0
+texture_margin_bottom = 12.0
+region_rect = Rect2(-1, -1, 161, 81)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dnynq"]
+texture = ExtResource("2_prqwo")
+texture_margin_left = 5.0
+texture_margin_top = 12.0
+texture_margin_right = 5.0
+texture_margin_bottom = 12.0
+region_rect = Rect2(0, 0, 160, 81)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bwr4m"]
+texture = ExtResource("2_prqwo")
+texture_margin_left = 5.0
+texture_margin_top = 12.0
+texture_margin_right = 5.0
+texture_margin_bottom = 12.0
+region_rect = Rect2(0, 0, 160, 81)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mvivf"]
+texture = ExtResource("1_is1fo")
+texture_margin_left = 9.0
+texture_margin_top = 12.0
+texture_margin_right = 10.0
+texture_margin_bottom = 9.0
+region_rect = Rect2(7, 166, 90, 83)
+
+[resource]
+default_font = ExtResource("1_vn7nl")
+default_font_size = 16
+Button/colors/font_color = Color(0.247059, 0.14902, 0.192157, 1)
+Button/colors/font_focus_color = Color(0.247059, 0.14902, 0.192157, 1)
+Button/colors/font_pressed_color = Color(0.247059, 0.14902, 0.192157, 1)
+Button/styles/hover = SubResource("StyleBoxTexture_ngbwm")
+Button/styles/normal = SubResource("StyleBoxTexture_dnynq")
+Button/styles/pressed = SubResource("StyleBoxTexture_bwr4m")
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_mvivf")

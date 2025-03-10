@@ -1,0 +1,99 @@
+[gd_scene load_steps=9 format=3 uid="uid://oe4fwxdi3lhc"]
+
+[ext_resource type="Script" path="res://scenes/game_object/archer/bow.gd" id="1_7khp7"]
+[ext_resource type="Texture2D" uid="uid://cdwpv35be7w4m" path="res://scenes/game_object/archer/Archer_Bow_Red.png" id="1_nnwli"]
+[ext_resource type="PackedScene" uid="uid://jqd2d5bfm66v" path="res://scenes/controller/bow_controller.tscn" id="2_bfwrs"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gthaw"]
+radius = 400.0
+
+[sub_resource type="Animation" id="Animation_mcbf8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponPivot/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_gtvue"]
+resource_name = "idle"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponPivot/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_sqmxs"]
+resource_name = "shoot"
+length = 2.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponPivot/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.8, 2.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11, 12, 13, 14, 15]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f0luv"]
+_data = {
+"RESET": SubResource("Animation_mcbf8"),
+"idle": SubResource("Animation_gtvue"),
+"shoot": SubResource("Animation_sqmxs")
+}
+
+[node name="Bow" type="Area2D" node_paths=PackedStringArray("bow_controller")]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_7khp7")
+bow_controller = NodePath("BowController")
+
+[node name="BowController" parent="." instance=ExtResource("2_bfwrs")]
+
+[node name="CooldownTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="ShootDelayTimer" type="Timer" parent="."]
+wait_time = 1.8
+one_shot = true
+
+[node name="WeaponPivot" type="Marker2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="WeaponPivot"]
+position = Vector2(21, -22)
+texture = ExtResource("1_nnwli")
+hframes = 8
+vframes = 2
+
+[node name="ShootingPoint" type="Marker2D" parent="WeaponPivot/Sprite2D"]
+unique_name_in_owner = true
+position = Vector2(53, 6)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(24, -11)
+shape = SubResource("CircleShape2D_gthaw")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_f0luv")
+}
