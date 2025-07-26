@@ -16,6 +16,8 @@ signal archer_purchased
 var current_textbox = null
 
 var textbox = preload("res://scenes/ui/text_box.tscn")
+var pause_menu_scene = preload("res://scenes/ui/pause_menu.tscn")
+
 
 func _ready() -> void:
 	textbox_2_show_area.body_entered.connect(on_textbox_2_showed)
@@ -34,6 +36,12 @@ func _ready() -> void:
 	add_child(current_textbox)
 	current_textbox.start_textbox("You can attack by left-clicking in any direction. Try attack these sheeps.")
 
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("pause"):
+		add_child(pause_menu_scene.instantiate())
+		get_tree().root.set_input_as_handled()
+		
 
 func remove_last_textbox():
 	if current_textbox != null:

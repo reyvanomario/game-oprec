@@ -13,15 +13,19 @@ func _ready() -> void:
 	pass
 	
 func _physics_process(delta: float) -> void:
+	# node area2d  bakal detect semua characterbody2d yang ada di dalam areanya
+	# lalu direturn dalam bentuk array, buat ngambil satu ambil indeks 0
 	var enemies_in_range = get_overlapping_bodies()
 	
 	if enemies_in_range.size() > 0:
+		owner.is_enemy_in_attack_area = true
 		var target_enemy = enemies_in_range[0] as Node2D
 		#print(target_enemy)
 		look_at(target_enemy.global_position)
 		
-			
-		update_sprite_flip(rotation)
+		
+		if not owner.is_enemy_in_attack_area:
+			update_sprite_flip(rotation)
 			
 		if not bow_controller.is_attacking:
 			bow_controller.attack()
@@ -29,6 +33,7 @@ func _physics_process(delta: float) -> void:
 			
 	else:
 		bow_controller.stop_attacking()
+		owner.is_enemy_in_attack_area = false
 		
 		
 func update_sprite_flip(angle: float) -> void:

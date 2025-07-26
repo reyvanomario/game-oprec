@@ -30,7 +30,7 @@ func _process(delta: float) -> void:
 		if is_destroyed:
 			$HurtboxComponent/CollisionShape2D.disabled = true
 			if not is_game_completed:
-				if get_tree().get_nodes_in_group("enemy").size() == 11:
+				if get_tree().get_nodes_in_group("enemy").size() == 0:
 					is_game_completed = true
 					await get_tree().create_timer(3.0).timeout
 					get_parent().get_node("EnemyManager").emit_all_enemy_defeated()

@@ -1,5 +1,5 @@
-res://scenes/ui
 res://scenes/autoload
+res://scenes/ui
 res://scenes/component
 res://scenes/game_object
 res://scenes/manager

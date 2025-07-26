@@ -46,12 +46,12 @@ func attack():
 	dynamite_throw_delay_timer.start()
 	is_skill_ready = false
 	
+	
 func spawn_dynamite():
 	var dynamite_instance = dynamite_throw_ability.instantiate() as Node2D
 	get_tree().root.add_child(dynamite_instance)
 	dynamite_instance.global_position = owner.global_position
 
-	
 	
 	
 	cooldown_timer.start()

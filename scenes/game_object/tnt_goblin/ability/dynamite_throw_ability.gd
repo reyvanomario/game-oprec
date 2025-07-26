@@ -25,6 +25,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if not is_thrown:
+		# ngambil posisi player
 		target_position = get_target_position()
 		is_thrown = true 
 	

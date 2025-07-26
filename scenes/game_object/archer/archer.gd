@@ -9,6 +9,9 @@ var is_chasing = false
 
 const MAX_SPEED = 200
 
+var animation_locked = false
+var is_enemy_in_attack_area = false
+
 func _ready() -> void:
 	$SightArea2D.body_entered.connect(on_sight_area_body_entered)
 	$SightArea2D.body_exited.connect(on_sight_area_body_exited)

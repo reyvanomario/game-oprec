@@ -1,6 +1,6 @@
 extends Node
 
-var current_gold_number = 0
+var current_gold_number = 10
 
 
 @onready var gold_counter_label = %GoldCounterLabel

@@ -78,12 +78,11 @@ script = ExtResource("1_td0u0")
 [node name="ArcherSprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("3_3dlfs")
 offset = Vector2(0, -32)
-flip_h = true
 hframes = 6
 vframes = 2
 
 [node name="Bow" parent="." instance=ExtResource("4_qcjv8")]
-position = Vector2(-23, -16)
+position = Vector2(28, -17)
 
 [node name="SightArea2D" type="Area2D" parent="."]
 visible = false

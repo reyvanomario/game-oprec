@@ -103,10 +103,11 @@ func handle_death():
 		is_dead = true
 		is_attacking = false
 		
-		# Nonaktifkan semua input dan fisika
+		# disable semua input dan physics porcess
 		set_process(false)
 		set_physics_process(false)
 		
+		# node main
 		get_parent().get_parent().on_player_died()
 		
 		animation_player.play("die")
